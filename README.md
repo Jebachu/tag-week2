@@ -1,41 +1,34 @@
-#TODOApp - Week 1
+#TODOApp - Week 2
 
-Tämä projekti on Android-sovellus, joka on toteutettu Kotlinilla ja Jetpack Composella.
-Sovelluksessa on yksinkertainen tehtävälista, jossa käyttäjä voi tarkastella, järjestää
-ja merkitä tehtäviä tehdyksi tai tekemättömiksi.
+Android-sovellus, toteutettu Kotlinilla ja Jetpack Composella,
+päivitetty käyttämään ViewModelia tehtävälistan hallintaan.
+
+## Ominaisuudet
+
+- Näyttää tehtävälistan LazyColumnissa
+- Lisää uusi tehtävä otsikolla ja kuvauksella
+- Merkitse tehtävä valmiiksi/avoimeksi (Checkbox)
+- Poista tehtävä painikkeella
+- Suodata tehtävät: Kaikki / Avoimet / Valmiit
+- Järjestä tehtävät eräpäivän mukaan
 
 ## Datamalli
 
-Sovelluksessa käytetään Task - data classia, joka sijaitsee 'domain' - paketissa.
+Task-data class (domain-paketti):
+id: yksilöllinen tunniste
+title: otsikko
+description: kuvaus
+priority: tärkeys
+dueDate: eräpäivä (String)
+done: valmiustila (true/false)
+Mock-data löytyy tiedostosta MockData.kt.
 
-Task sisältää seuraavat kentät:
-- id: yksilöllinen tunnite
-- title: tehtävän otsikko
-- description: tehtävän kuvaus
-- priority: tehtävän tärkeys
-- dueDate: eräpäivä (String-muodossa)
-- done: tieto siitä, onko tehtävä tehty
+## Viewmodel
 
-Mock-data on määritelty omassa tiedostossaan (MockData.kt). listana Task-olioita.
-
-## Kotlin-funktiot
-
-Sovelluksessa on toteutettu seuraavat Kotlin-funktiot:
-
-- addTask(list, task): Lisää uuden tehtävän listan loppuun ja palauttaa uuden listan.
-- toggleDone(list, id): Kääntää annetun id:n omaavan tehtävän 'done'-tilan (true/false).
-- filterByDone(list, done): Palauttaa vain ne tehtävät, joiden 'done'-tila vastaa annettua arvoa.
-- sortByDueDate(list): Järjestää tehtävälistan eräpäivän mukaan.
-
-## Käyttöliittymä
-
-Käyttöliittymä on toteutettu Jetpack Composella ilman XML-layoutteja.
-HomeScreen näyttää:
-- otsikon
-- tehtävälistan tekstimuodossa
-- painikkeet tehtävien järjestämiseen ja suodattamiseen
-
-UI-koodi sijaitsee omassa tiedostossaan (HomeScreen.kt) erillään domain-paketista.
+- TaskViewModel hallitsee tilaa:
+- tasks: MutableState<List<Task>>
+- Funktiot: addTask, toggleDone, removeTask, filterByDone, sortByDueDate
+- UI päivittyy automaattisesti tilan muuttuessa
 
 ## Ajaminen
 
